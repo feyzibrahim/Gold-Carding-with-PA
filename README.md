@@ -22,7 +22,7 @@ The project follows a client-server architecture, with the frontend and backend 
 ## Setup Instructions
 
 1. **Clone the Repository:**
-   git clone [<repository_url>](https://github.com/feyzibrahim/Gold-Carding-with-PA)
+   git clone https://github.com/feyzibrahim/Gold-Carding-with-PA
    cd dynamic-gold-carding-module
 
 2. **Install Dependencies:**

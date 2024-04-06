@@ -1,19 +1,36 @@
 import { DataTypes } from "sequelize";
 import { db } from "../index";
+import Provider from "./provider.model";
 
 const ProviderGoldCardingStatus = db.define("providerGoldCardingStatus", {
-  id: {
+  status_id: {
     type: DataTypes.UUID,
     primaryKey: true,
     defaultValue: DataTypes.UUIDV4,
   },
-  code: {
-    type: DataTypes.STRING(10),
+  provider_id: {
+    type: DataTypes.UUID,
     allowNull: false,
-    unique: true,
+    references: {
+      // model: "providers",
+      model: Provider,
+      key: "provider_id",
+    },
   },
-  description: {
-    type: DataTypes.TEXT,
+  criteria_met: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+  },
+  gold_carding_level: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  valid_from: {
+    type: DataTypes.DATE,
+    allowNull: false,
+  },
+  valid_until: {
+    type: DataTypes.DATE,
     allowNull: false,
   },
 });
@@ -21,6 +38,8 @@ const ProviderGoldCardingStatus = db.define("providerGoldCardingStatus", {
 // Create the table
 (async () => {
   try {
+    await Provider.sync();
+
     await ProviderGoldCardingStatus.sync(); // This will create the table if it doesn't exist
     console.log("ProviderGoldCardingStatus table created successfully.");
   } catch (error) {

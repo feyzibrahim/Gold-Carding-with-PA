@@ -1,7 +1,8 @@
-import { DataTypes } from "sequelize";
+import { DataTypes, Model } from "sequelize";
 import { db } from "../index";
+import { UserEntity } from "../../entities";
 
-const User = db.define("users", {
+const User = db.define<Model<UserEntity>>("users", {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
@@ -18,6 +19,9 @@ const User = db.define("users", {
   password: {
     type: DataTypes.STRING,
     allowNull: false,
+  },
+  role: {
+    type: DataTypes.STRING(10),
   },
 });
 

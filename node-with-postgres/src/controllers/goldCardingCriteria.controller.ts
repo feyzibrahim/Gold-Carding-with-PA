@@ -1,12 +1,13 @@
 import { Router, Request, Response, NextFunction } from "express";
-import { ProviderService } from "../services";
+import { GoldCardingCriteriaService } from "../services";
+import { GoldCardingCriteriaEntity } from "../entities";
 
 const router = Router();
-const service = new ProviderService();
+const service = new GoldCardingCriteriaService();
 
 router
-  .route("/provider")
-  //GET => Find all providers
+  .route("/goldCardingCriteria")
+  //GET => Find all goldCardingCriteria
   .get(async (req: Request, res: Response, next: NextFunction) => {
     try {
       const data = await service.findAll();
@@ -15,13 +16,12 @@ router
       next(error);
     }
   })
-  //POST => Create new provider
+  //POST => Create new goldCardingCriteria
   .post(async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { name, specialty } = req.body;
+      const body: GoldCardingCriteriaEntity = req.body;
       const data = await service.create({
-        name,
-        specialty,
+        ...body,
       });
       res.status(201).json(data);
     } catch (error) {
@@ -30,8 +30,8 @@ router
   });
 
 router
-  .route("/provider/:id")
-  //GET => Find provider by id
+  .route("/goldCardingCriteria/:id")
+  //GET => Find goldCardingCriteria by id
   .get(async (req: Request, res: Response, next: NextFunction) => {
     try {
       const id = req.params?.id;
@@ -41,17 +41,17 @@ router
       next(error);
     }
   })
-  //GET => Find provider by id
+  //GET => Find goldCardingCriteria by id
   .delete(async (req: Request, res: Response, next: NextFunction) => {
     try {
       const id = req.params?.id;
-      const data = await service.deleteProvider(id);
+      const data = await service.deleteGoldCardingCriteria(id);
       res.status(200).json(data);
     } catch (error) {
       next(error);
     }
   })
-  //PUT => Update existing provider
+  //PUT => Update existing goldCardingCriteria
   .put(async (req: Request, res: Response, next: NextFunction) => {
     try {
       const id = req.params?.id;
@@ -59,11 +59,10 @@ router
         throw Error("No id found");
       }
 
-      const { name, specialty } = req.body;
+      const body: GoldCardingCriteriaEntity = req.body;
       const data = await service.update({
-        provider_id: id,
-        name,
-        specialty,
+        ...body,
+        criteria_id: id,
       });
       res.status(200).json(data);
     } catch (error) {

@@ -7,6 +7,7 @@ export class UserService {
       name: data.name,
       email: data.email,
       password: data.password,
+      role: data.role,
     });
     return user;
   }
@@ -18,6 +19,11 @@ export class UserService {
 
   async findById(id: string | number) {
     const user = await User.findOne({ where: { id: id } });
+    return user;
+  }
+
+  async findByEmail(email: string) {
+    const user = await User.findOne({ where: { email: email } });
     return user;
   }
 
@@ -33,5 +39,16 @@ export class UserService {
       }
     );
     return updated;
+  }
+
+  async deleteUser(id: string | number) {
+    const user = await User.findOne({
+      where: { id: id },
+    });
+    if (!user) {
+      return;
+    }
+    await user.destroy();
+    return user;
   }
 }

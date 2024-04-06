@@ -1,12 +1,13 @@
 import { Router, Request, Response, NextFunction } from "express";
-import { ProviderService } from "../services";
+import { ProviderGoldCardingStatusService } from "../services";
+import { ProviderGoldCardingStatusEntity } from "../entities";
 
 const router = Router();
-const service = new ProviderService();
+const service = new ProviderGoldCardingStatusService();
 
 router
-  .route("/provider")
-  //GET => Find all providers
+  .route("/providerGoldCardingStatus")
+  //GET => Find all providerGoldCardingStatus
   .get(async (req: Request, res: Response, next: NextFunction) => {
     try {
       const data = await service.findAll();
@@ -15,13 +16,12 @@ router
       next(error);
     }
   })
-  //POST => Create new provider
+  //POST => Create new providerGoldCardingStatus
   .post(async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { name, specialty } = req.body;
+      const body: ProviderGoldCardingStatusEntity = req.body;
       const data = await service.create({
-        name,
-        specialty,
+        ...body,
       });
       res.status(201).json(data);
     } catch (error) {
@@ -30,28 +30,29 @@ router
   });
 
 router
-  .route("/provider/:id")
-  //GET => Find provider by id
+  .route("/providerGoldCardingStatus/:id")
+  //GET => Find providerGoldCardingStatus by id
   .get(async (req: Request, res: Response, next: NextFunction) => {
     try {
       const id = req.params?.id;
       const data = await service.findById(id);
+
       res.status(200).json(data);
     } catch (error) {
       next(error);
     }
   })
-  //GET => Find provider by id
+  //GET => Find providerGoldCardingStatus by id
   .delete(async (req: Request, res: Response, next: NextFunction) => {
     try {
       const id = req.params?.id;
-      const data = await service.deleteProvider(id);
+      const data = await service.deleteProviderGoldCardingStatus(id);
       res.status(200).json(data);
     } catch (error) {
       next(error);
     }
   })
-  //PUT => Update existing provider
+  //PUT => Update existing providerGoldCardingStatus
   .put(async (req: Request, res: Response, next: NextFunction) => {
     try {
       const id = req.params?.id;
@@ -59,11 +60,10 @@ router
         throw Error("No id found");
       }
 
-      const { name, specialty } = req.body;
+      const body: ProviderGoldCardingStatusEntity = req.body;
       const data = await service.update({
-        provider_id: id,
-        name,
-        specialty,
+        ...body,
+        status_id: id,
       });
       res.status(200).json(data);
     } catch (error) {

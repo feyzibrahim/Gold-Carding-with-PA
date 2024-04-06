@@ -1,16 +1,12 @@
 import { DataTypes } from "sequelize";
 import { db } from "../index";
 
-const Provider = db.define("providers", {
-  id: {
-    type: DataTypes.INTEGER,
-    autoIncrement: true,
-    primaryKey: true,
-  },
+const Provider = db.define("provider", {
   provider_id: {
     type: DataTypes.UUID,
     primaryKey: true,
     defaultValue: DataTypes.UUIDV4,
+    unique: true,
   },
   name: {
     type: DataTypes.STRING,

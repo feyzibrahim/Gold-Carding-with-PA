@@ -16,7 +16,16 @@ export class ProviderService {
   }
 
   async findById(id: string | number) {
-    const provider = await Provider.findOne({ where: { id: id } });
+    const provider = await Provider.findOne({ where: { provider_id: id } });
+    return provider;
+  }
+
+  async deleteProvider(id: string | number) {
+    const provider = await Provider.findOne({ where: { provider_id: id } });
+    if (!provider) {
+      return;
+    }
+    await provider.destroy();
     return provider;
   }
 
@@ -27,7 +36,7 @@ export class ProviderService {
         specialty: data.specialty,
       },
       {
-        where: { id: data.id },
+        where: { provider_id: data.id },
       }
     );
     return updated;

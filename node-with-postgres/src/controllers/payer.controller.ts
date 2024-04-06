@@ -1,12 +1,12 @@
 import { Router, Request, Response, NextFunction } from "express";
-import { ProviderService } from "../services";
+import { PayerService } from "../services";
 
 const router = Router();
-const service = new ProviderService();
+const service = new PayerService();
 
 router
-  .route("/provider")
-  //GET => Find all providers
+  .route("/payer")
+  //GET => Find all payers
   .get(async (req: Request, res: Response, next: NextFunction) => {
     try {
       const data = await service.findAll();
@@ -15,13 +15,13 @@ router
       next(error);
     }
   })
-  //POST => Create new provider
+  //POST => Create new payer
   .post(async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { name, specialty } = req.body;
+      const { name, description } = req.body;
       const data = await service.create({
         name,
-        specialty,
+        description,
       });
       res.status(201).json(data);
     } catch (error) {
@@ -30,8 +30,8 @@ router
   });
 
 router
-  .route("/provider/:id")
-  //GET => Find provider by id
+  .route("/payer/:id")
+  //GET => Find payer by id
   .get(async (req: Request, res: Response, next: NextFunction) => {
     try {
       const id = req.params?.id;
@@ -41,17 +41,17 @@ router
       next(error);
     }
   })
-  //GET => Find provider by id
+  //GET => Find payer by id
   .delete(async (req: Request, res: Response, next: NextFunction) => {
     try {
       const id = req.params?.id;
-      const data = await service.deleteProvider(id);
+      const data = await service.deletePayer(id);
       res.status(200).json(data);
     } catch (error) {
       next(error);
     }
   })
-  //PUT => Update existing provider
+  //PUT => Update existing payer
   .put(async (req: Request, res: Response, next: NextFunction) => {
     try {
       const id = req.params?.id;
@@ -59,11 +59,11 @@ router
         throw Error("No id found");
       }
 
-      const { name, specialty } = req.body;
+      const { name, description } = req.body;
       const data = await service.update({
-        provider_id: id,
+        payer_id: parseInt(id),
         name,
-        specialty,
+        description,
       });
       res.status(200).json(data);
     } catch (error) {

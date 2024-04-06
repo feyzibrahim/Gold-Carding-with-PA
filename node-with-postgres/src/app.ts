@@ -1,16 +1,45 @@
+import dotenv from "dotenv";
+dotenv.config();
 import express, { Application, Request, Response, NextFunction } from "express";
-import { UserController } from "./controllers";
+import {
+  UserController,
+  ProviderController,
+  CptCodeController,
+  GoldCardingRuleController,
+  GoldCardingCriteriaController,
+  PayerController,
+  ProviderGoldCardingStatusController,
+  ProviderCptApproval,
+} from "./controllers";
+import cors from "cors";
+
 const app: Application = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(UserController);
+
+const allowedOrigins = process.env.CLIENT_URL as string;
+const corsOptions = {
+  credentials: true,
+  origin: [allowedOrigins],
+  methods: "GET, HEAD, PUT, PATCH, POST, DELETE",
+};
+app.use(cors(corsOptions));
+
+app.use("/api", UserController);
+app.use("/api", ProviderController);
+app.use("/api", CptCodeController);
+app.use("/api", GoldCardingRuleController);
+app.use("/api", GoldCardingCriteriaController);
+app.use("/api", PayerController);
+app.use("/api", ProviderGoldCardingStatusController);
+app.use("/api", ProviderCptApproval);
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   res.status(400).json({ error: err?.message || "Something went wrong" });
 });
 
-app.listen(3001, () => {
+app.listen(3000, () => {
   console.log("server listening at 3000");
 });
 

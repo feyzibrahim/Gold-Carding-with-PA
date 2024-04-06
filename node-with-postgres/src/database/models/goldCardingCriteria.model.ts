@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
 import { db } from "../index";
+import CptCode from "./cptCode.model";
 
 const GoldCardingCriteria = db.define("goldCardingCriteria", {
   criteria_id: {
@@ -27,12 +28,12 @@ const GoldCardingCriteria = db.define("goldCardingCriteria", {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
-  cpt_code_id: {
-    type: DataTypes.UUID,
+  cpt_code: {
+    type: DataTypes.STRING(10),
     allowNull: false,
     references: {
-      model: "cptCode",
-      key: "id",
+      model: CptCode,
+      key: "cpt_code",
     },
   },
 });
@@ -40,6 +41,7 @@ const GoldCardingCriteria = db.define("goldCardingCriteria", {
 // Create the table
 (async () => {
   try {
+    await CptCode.sync();
     await GoldCardingCriteria.sync(); // This will create the table if it doesn't exist
     console.log("GoldCardingCriteria table created successfully.");
   } catch (error) {

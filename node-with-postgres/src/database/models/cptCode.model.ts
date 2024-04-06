@@ -2,14 +2,9 @@ import { DataTypes } from "sequelize";
 import { db } from "../index";
 
 const CptCode = db.define("cptCode", {
-  id: {
-    type: DataTypes.UUID,
-    primaryKey: true,
-    defaultValue: DataTypes.UUIDV4,
-  },
-  code: {
+  cpt_code: {
     type: DataTypes.STRING(10),
-    allowNull: false,
+    primaryKey: true,
     unique: true,
   },
   description: {

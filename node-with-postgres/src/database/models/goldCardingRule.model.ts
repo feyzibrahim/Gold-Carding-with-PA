@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
 import { db } from "../index";
+import Payer from "./payer.model";
 
 const GoldCardingRule = db.define("goldCardingRule", {
   rule_id: {
@@ -11,8 +12,8 @@ const GoldCardingRule = db.define("goldCardingRule", {
     type: DataTypes.UUID,
     allowNull: false,
     references: {
-      model: "Payer",
-      key: "id",
+      model: Payer,
+      key: "payer_id",
     },
   },
   description: {
@@ -36,11 +37,16 @@ const GoldCardingRule = db.define("goldCardingRule", {
 // Create the table
 (async () => {
   try {
+    await Payer.sync();
+
     await GoldCardingRule.sync(); // This will create the table if it doesn't exist
     console.log("GoldCardingRules table created successfully.");
   } catch (error) {
     console.error("Unable to create goldCardingRule table:", error);
   }
 })();
+
+// Define foreign key references
+// GoldCardingRule.belongsTo(Payer, { foreignKey: "payer_id" });
 
 export default GoldCardingRule;

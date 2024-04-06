@@ -2,7 +2,7 @@ import { DataTypes } from "sequelize";
 import { db } from "../index";
 
 const Payer = db.define("payer", {
-  id: {
+  payer_id: {
     type: DataTypes.UUID,
     primaryKey: true,
     defaultValue: DataTypes.UUIDV4,

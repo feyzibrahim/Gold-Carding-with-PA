@@ -44,7 +44,7 @@ export const commonReduxRequest = async (
 export const commonRequest = async (
   method: string,
   route: string,
-  body: {}
+  body?: {}
 ) => {
   let requestConfig = {
     method: method,

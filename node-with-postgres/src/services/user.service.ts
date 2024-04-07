@@ -8,6 +8,8 @@ export class UserService {
       email: data.email,
       password: data.password,
       role: data.role,
+      payer_id: data.payer_id,
+      provider_id: data.provider_id,
     });
     return user;
   }
@@ -33,6 +35,9 @@ export class UserService {
         name: data.name,
         email: data.email,
         password: data.password,
+        role: data.role,
+        payer_id: data.payer_id,
+        provider_id: data.provider_id,
       },
       {
         where: { id: data.id },

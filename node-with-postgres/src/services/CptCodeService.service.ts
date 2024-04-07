@@ -11,7 +11,9 @@ export class CptCodeService {
   }
 
   async findAll() {
-    const cptCodes = await CptCode.findAll();
+    const cptCodes = await CptCode.findAll({
+      order: [["createdAt", "DESC"]],
+    });
     return cptCodes;
   }
 
@@ -29,16 +31,21 @@ export class CptCodeService {
     return cptCode;
   }
 
-  async update(data: CptCodeEntity) {
-    const updated = await CptCode.update(
+  async update(data: CptCodeEntity, code: string) {
+    await CptCode.update(
       {
         cpt_code: data.cpt_code,
         description: data.description,
       },
       {
-        where: { cpt_code: data.cpt_code },
+        where: { cpt_code: code },
       }
     );
-    return updated;
+
+    const cptCode = await CptCode.findOne({
+      where: { cpt_code: data.cpt_code },
+    });
+
+    return cptCode;
   }
 }

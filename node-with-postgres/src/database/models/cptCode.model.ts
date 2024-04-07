@@ -6,6 +6,7 @@ const CptCode = db.define("cptCode", {
     type: DataTypes.STRING(10),
     primaryKey: true,
     unique: true,
+    allowNull: false,
   },
   description: {
     type: DataTypes.TEXT,

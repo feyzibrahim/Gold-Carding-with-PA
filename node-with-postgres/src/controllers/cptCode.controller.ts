@@ -60,10 +60,13 @@ router
       }
 
       const body: CptCodeEntity = req.body;
-      const data = await service.update({
-        ...body,
-        cpt_code: id,
-      });
+
+      const data = await service.update(
+        {
+          ...body,
+        },
+        id
+      );
       res.status(200).json(data);
     } catch (error) {
       next(error);

@@ -1,6 +1,8 @@
 import { DataTypes, Model } from "sequelize";
 import { db } from "../index";
 import { UserEntity } from "../../entities";
+import Provider from "./provider.model";
+import Payer from "./payer.model";
 
 const User = db.define<Model<UserEntity>>("users", {
   id: {
@@ -22,6 +24,22 @@ const User = db.define<Model<UserEntity>>("users", {
   },
   role: {
     type: DataTypes.STRING(10),
+  },
+  payer_id: {
+    type: DataTypes.UUID,
+    allowNull: true,
+    references: {
+      model: Payer,
+      key: "payer_id",
+    },
+  },
+  provider_id: {
+    type: DataTypes.UUID,
+    allowNull: true,
+    references: {
+      model: Provider,
+      key: "provider_id",
+    },
   },
 });
 

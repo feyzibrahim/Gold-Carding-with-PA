@@ -19,12 +19,14 @@ router
   //POST => Create new user
   .post(async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { name, email, password, role } = req.body;
+      const { name, email, password, role, provider_id, payer_id } = req.body;
       const data = await service.create({
         name,
         email,
         password,
         role,
+        provider_id,
+        payer_id,
       });
       res.status(201).json(data);
     } catch (error) {
@@ -34,13 +36,16 @@ router
   //PUT => Update existing user
   .put(async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { name, email, password, id, role } = req.body;
+      const { name, email, password, id, role, provider_id, payer_id } =
+        req.body;
       const data = await service.update({
         name,
         email,
         password,
         id,
         role,
+        provider_id,
+        payer_id,
       });
       res.status(200).json(data);
     } catch (error) {

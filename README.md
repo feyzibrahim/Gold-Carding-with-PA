@@ -28,18 +28,21 @@ The project follows a client-server architecture, with the frontend and backend 
 2. **Install Dependencies:**
    cd client
    npm install
-   cd ../server
+   cd ../node-with-postgres
    npm install
 
 3. **Database Setup:**
 
-- Download and install postgreSQL `https://www.postgresql.org/download/`
-- Create an `.env` file and copy the code from `.env.local` and paste it inside the `.env` file.
+- Download and install [postgreSQL](https://www.postgresql.org/download/)
+- Create an `.env` file inside node-with-postgres and copy the code from `.env.local` and paste it inside the `.env` file.
+- cd node-with-postgres
+- Run `-- psql -U postgres -d dynamic_gold_carding_db -f "create_db_table.sql"`
+- This command will create database, generate tables and insert necessary data to corresponding tables.
 
 4. **Start the Development Servers:**
    cd client
    npm start | for frontend
-   cd ../server
+   cd ../node-with-postgres
    npm start | for backend
 
 5. **Access the Application:**
@@ -50,7 +53,7 @@ The project follows a client-server architecture, with the frontend and backend 
 ## Additional Notes
 
 - **API Documentation:** Detailed documentation for backend APIs can be found in the [Postman](https://www.postman.com/research-candidate-11889234/workspace/gold-carding-pv/collection/25431562-2a85af3f-24d1-4b14-8ed7-4f87fb6ddd02?action=share&creator=25431562)
-- **Testing:** Unit tests and integration tests are available in the `backend/__tests__` directory. Run tests using `npm test` in the backend directory.
+- **Testing:** Unit tests and integration tests are available in the `node-with-postgres/__tests__` directory. Run tests using `npm test` in the backend directory.
 
 ## Contributors
 

@@ -9,9 +9,10 @@ import {
   GoldCardingCriteriaController,
   PayerController,
   ProviderGoldCardingStatusController,
-  ProviderCptApproval,
+  PriorAuthorizationRequest,
 } from "./controllers";
 import cors from "cors";
+import { startProviderDataUpdateCronJob } from "./cron/startProviderDataUpdateCronJob";
 
 const app: Application = express();
 
@@ -33,10 +34,16 @@ app.use("/api", GoldCardingRuleController);
 app.use("/api", GoldCardingCriteriaController);
 app.use("/api", PayerController);
 app.use("/api", ProviderGoldCardingStatusController);
-app.use("/api", ProviderCptApproval);
+app.use("/api", PriorAuthorizationRequest);
+
+// Cron Jobs
+
+startProviderDataUpdateCronJob();
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-  res.status(400).json({ error: err?.message || "Something went wrong" });
+  res
+    .status(400)
+    .json({ error: err?.message || "Something went wrong", success: false });
 });
 
 app.listen(3000, () => {

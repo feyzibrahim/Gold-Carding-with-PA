@@ -37,7 +37,10 @@ const Login: React.FC = () => {
       <div className="max-w-md w-full bg-white p-8 rounded shadow-md">
         <h2 className="text-3xl font-semibold text-center mb-4">Login</h2>
         <Formik
-          initialValues={{ email: "admin@gmail.com", password: "Admin@1234" }}
+          initialValues={{
+            email: "healthylife@gmail.com",
+            password: "Payer@1234",
+          }}
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
         >

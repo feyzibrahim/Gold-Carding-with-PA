@@ -5,4 +5,4 @@ export * from "./CptCodeService.service";
 export * from "./Payer.service";
 export * from "./Provider.service";
 export * from "./user.service";
-export * from "./ProviderCptApprovalService.service";
+export * from "./PriorAuthorizationRequest.service";

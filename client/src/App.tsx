@@ -10,11 +10,12 @@ import Dashboard from "./page/Dashboard";
 import { useAppSelector } from "./redux/hook";
 import { ReactNode } from "react";
 import Home from "./page/dashboardPages/Home";
-import PriorAuthorization from "./page/dashboardPages/PriorAuthorization";
 import Claims from "./page/dashboardPages/Claims";
-import MyProfile from "./page/dashboardPages/MyProfile";
-import CptCodes from "./page/dashboardPages/admin/CptCodes";
-import GoldCardCriteria from "./page/dashboardPages/admin/GoldCardCriteria";
+import CptCodes from "./page/dashboardPages/admin/CptCodes/CptCodes";
+import GoldCardRule from "./page/dashboardPages/payer/GoldCardRule/GoldCardRule";
+import PriorAuthorizationRequest from "./page/dashboardPages/provider/PriorAuthorization/PriorAuthorizationRequest";
+import HandlePARequest from "./page/dashboardPages/payer/HandlePARequest/HandlePARequest";
+import GoldCardCriteria from "./page/dashboardPages/admin/GoldCardCriteria/GoldCardCriteria";
 
 function App() {
   const { user } = useAppSelector((state) => state.user);
@@ -32,13 +33,24 @@ function App() {
           element={<ProtectedRoute element={<Dashboard />} />}
         >
           <Route index element={<Home />} />
-          <Route path="prior-authorization" element={<PriorAuthorization />} />
+          <Route
+            path="prior-authorization"
+            element={
+              user?.role === "payer" ? (
+                <HandlePARequest />
+              ) : (
+                <PriorAuthorizationRequest />
+              )
+            }
+          />
           <Route path="claims" element={<Claims />} />
-          <Route path="my-profile" element={<MyProfile />} />
 
           {/* Admin Routes */}
           <Route path="cpt-codes" element={<CptCodes />} />
           <Route path="gold-carding-criteria" element={<GoldCardCriteria />} />
+
+          {/* Payer */}
+          <Route path="gold-carding-rule" element={<GoldCardRule />} />
         </Route>
       </Routes>
     </Router>

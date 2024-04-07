@@ -24,6 +24,13 @@ export class GoldCardingRuleService {
     return cptCode;
   }
 
+  async findByPayer(payer_id: string | number) {
+    const cptCode = await GoldCardingRule.findAll({
+      where: { payer_id: payer_id },
+    });
+    return cptCode;
+  }
+
   async deleteGoldCardingRule(id: string | number) {
     const cptCode = await GoldCardingRule.findOne({ where: { rule_id: id } });
     if (!cptCode) {

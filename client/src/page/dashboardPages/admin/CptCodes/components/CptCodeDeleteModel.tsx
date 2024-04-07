@@ -1,5 +1,5 @@
-import { commonRequest } from "../../../../common/api";
-import { CptCodeTypes } from "../../../../constants/Types";
+import { commonRequest } from "../../../../../common/api";
+import { CptCodeTypes } from "../../../../../constants/Types";
 
 interface Props {
   setShowModal: (val: boolean) => void;

@@ -5,4 +5,4 @@ export { default as PayerController } from "./payer.controller";
 export { default as ProviderController } from "./provider.controller";
 export { default as ProviderGoldCardingStatusController } from "./providerGoldCardingStatus.controller";
 export { default as UserController } from "./user.controller";
-export { default as ProviderCptApproval } from "./providerCptApproval.controller";
+export { default as PriorAuthorizationRequest } from "./priorAuthorizationRequest.controller";

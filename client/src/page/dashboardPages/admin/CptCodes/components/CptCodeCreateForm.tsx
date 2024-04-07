@@ -1,46 +1,38 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from "yup";
-import { commonRequest } from "../../../../common/api";
-import { CptCodeTypes } from "../../../../constants/Types";
+import { commonRequest } from "../../../../../common/api";
+import { CptCodeTypes } from "../../../../../constants/Types";
 
 interface Props {
   setShowModal: (val: boolean) => void;
   setData: any;
-  selectedCptCode: CptCodeTypes;
 }
 
-function CptCodeEditForm({ setShowModal, setData, selectedCptCode }: Props) {
-  const handleEditCptCode = async (values: any) => {
+function CptCodeCreateForm({ setShowModal, setData }: Props) {
+  const handleCreateCptCode = async (values: any) => {
     try {
       const res = (await commonRequest(
-        "PUT",
-        `/cptCode/${selectedCptCode.cpt_code}`,
+        "POST",
+        "/cptCode",
         values
       )) as CptCodeTypes;
-
-      setData((prev: CptCodeTypes[]) =>
-        prev.map((cptCode) =>
-          cptCode.cpt_code === res.cpt_code ? res : cptCode
-        )
-      );
+      setData((prev: CptCodeTypes[]) => [res, ...prev]);
       setShowModal(false);
     } catch (error) {
-      console.error("Error updating CPT code:", error);
+      console.error("Error creating CPT code:", error);
     }
   };
 
   return (
     <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-      <h3 className="text-lg font-medium text-gray-900">Edit CPT Code</h3>
+      <h3 className="text-lg font-medium text-gray-900">Create CPT Code</h3>
       <Formik
-        initialValues={{
-          cpt_code: selectedCptCode.cpt_code,
-          description: selectedCptCode.description,
-        }}
+        initialValues={{ cpt_code: "", description: "" }}
         validationSchema={Yup.object({
+          cpt_code: Yup.string().required("CPT code is required"),
           description: Yup.string().required("Description is required"),
         })}
-        onSubmit={handleEditCptCode}
+        onSubmit={handleCreateCptCode}
       >
         <Form className="mt-5">
           <div className="mb-4">
@@ -54,7 +46,13 @@ function CptCodeEditForm({ setShowModal, setData, selectedCptCode }: Props) {
               type="text"
               id="cpt_code"
               name="cpt_code"
+              placeholder="Enter CPT Code"
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight"
+            />
+            <ErrorMessage
+              name="cpt_code"
+              component="div"
+              className="text-red-500 text-xs mt-1"
             />
           </div>
           <div className="mb-4">
@@ -98,4 +96,4 @@ function CptCodeEditForm({ setShowModal, setData, selectedCptCode }: Props) {
   );
 }
 
-export default CptCodeEditForm;
+export default CptCodeCreateForm;

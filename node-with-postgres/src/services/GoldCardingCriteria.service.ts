@@ -4,12 +4,11 @@ import { GoldCardingCriteriaEntity } from "../entities";
 export class GoldCardingCriteriaService {
   async create(data: GoldCardingCriteriaEntity) {
     const goldCardingCriteria = await GoldCardingCriteria.create({
-      cpt_code: data.cpt_code,
       description: data.description,
       measurement_period_months: data.measurement_period_months,
       metric: data.metric,
-      operator: data.operator,
       threshold: data.threshold,
+      level: data.level,
     });
     return goldCardingCriteria;
   }
@@ -38,7 +37,7 @@ export class GoldCardingCriteriaService {
   }
 
   async update(data: GoldCardingCriteriaEntity) {
-    const updated = await GoldCardingCriteria.update(
+    await GoldCardingCriteria.update(
       {
         ...data,
       },
@@ -46,6 +45,11 @@ export class GoldCardingCriteriaService {
         where: { criteria_id: data.criteria_id },
       }
     );
-    return updated;
+
+    const goldCardingCriteria = await GoldCardingCriteria.findOne({
+      where: { criteria_id: data.criteria_id },
+    });
+
+    return goldCardingCriteria;
   }
 }

@@ -4,8 +4,7 @@ import { ProviderEntity } from "../entities";
 export class ProviderService {
   async create(data: ProviderEntity) {
     const provider = await Provider.create({
-      name: data.name,
-      specialty: data.specialty,
+      ...data,
     });
     return provider;
   }

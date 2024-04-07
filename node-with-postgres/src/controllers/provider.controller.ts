@@ -1,5 +1,6 @@
 import { Router, Request, Response, NextFunction } from "express";
 import { ProviderService } from "../services";
+import { ProviderEntity } from "../entities";
 
 const router = Router();
 const service = new ProviderService();
@@ -18,10 +19,9 @@ router
   //POST => Create new provider
   .post(async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { name, specialty } = req.body;
+      const body: ProviderEntity = req.body;
       const data = await service.create({
-        name,
-        specialty,
+        ...body,
       });
       res.status(201).json(data);
     } catch (error) {
@@ -59,11 +59,10 @@ router
         throw Error("No id found");
       }
 
-      const { name, specialty } = req.body;
+      const body: ProviderEntity = req.body;
       const data = await service.update({
         provider_id: id,
-        name,
-        specialty,
+        ...body,
       });
       res.status(200).json(data);
     } catch (error) {

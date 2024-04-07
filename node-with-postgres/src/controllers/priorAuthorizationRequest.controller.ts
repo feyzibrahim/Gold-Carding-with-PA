@@ -1,25 +1,25 @@
 import { Router, Request, Response, NextFunction } from "express";
-import { GoldCardingRuleService } from "../services";
-import { GoldCardingRuleEntity } from "../entities";
+import { PriorAuthorizationRequestService } from "../services";
+import { PriorAuthorizationRequestEntity } from "../entities";
 
 const router = Router();
-const service = new GoldCardingRuleService();
+const service = new PriorAuthorizationRequestService();
 
 router
-  .route("/goldCardingRule")
-  //GET => Find all goldCardingRules
+  .route("/priorAuthorizationRequest")
+  //GET => Find all priorAuthorizationRequests
   .get(async (req: Request, res: Response, next: NextFunction) => {
     try {
       const data = await service.findAll();
-      res.status(200).json(data);
+      res.status(200).json({ data, success: true });
     } catch (error) {
       next(error);
     }
   })
-  //POST => Create new goldCardingRule
+  //POST => Create new priorAuthorizationRequest
   .post(async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const body: GoldCardingRuleEntity = req.body;
+      const body: PriorAuthorizationRequestEntity = req.body;
       const data = await service.create({
         ...body,
       });
@@ -30,22 +30,34 @@ router
   });
 
 router
-  .route("/goldCardingRule/payer/:payer_id")
-  //GET => Find all goldCardingRules
+  .route("/priorAuthorizationRequest/provider_id/:provider_id")
   .get(async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const payer_id = req.params?.payer_id;
+      const provider_id = req.params?.provider_id;
 
-      const data = await service.findByPayer(payer_id);
-      res.status(200).json(data);
+      const data = await service.findByProvider(provider_id);
+      res.status(201).json({ data, success: true });
     } catch (error) {
       next(error);
     }
   });
 
 router
-  .route("/goldCardingRule/:id")
-  //GET => Find goldCardingRule by id
+  .route("/priorAuthorizationRequest/payer_id/:payer_id")
+  .get(async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const payer_id = req.params?.payer_id;
+
+      const data = await service.findByPayer(payer_id);
+      res.status(201).json({ data, success: true });
+    } catch (error) {
+      next(error);
+    }
+  });
+
+router
+  .route("/priorAuthorizationRequest/:id")
+  //GET => Find priorAuthorizationRequest by id
   .get(async (req: Request, res: Response, next: NextFunction) => {
     try {
       const id = req.params?.id;
@@ -55,17 +67,17 @@ router
       next(error);
     }
   })
-  //GET => Find goldCardingRule by id
+  //GET => Find priorAuthorizationRequest by id
   .delete(async (req: Request, res: Response, next: NextFunction) => {
     try {
       const id = req.params?.id;
-      const data = await service.deleteGoldCardingRule(id);
+      const data = await service.deletePriorAuthorizationRequest(id);
       res.status(200).json(data);
     } catch (error) {
       next(error);
     }
   })
-  //PUT => Update existing goldCardingRule
+  //PUT => Update existing priorAuthorizationRequest
   .put(async (req: Request, res: Response, next: NextFunction) => {
     try {
       const id = req.params?.id;
@@ -73,10 +85,11 @@ router
         throw Error("No id found");
       }
 
-      const body: GoldCardingRuleEntity = req.body;
+      const body: PriorAuthorizationRequestEntity = req.body;
+
       const data = await service.update({
         ...body,
-        rule_id: id,
+        request_id: id,
       });
       res.status(200).json(data);
     } catch (error) {

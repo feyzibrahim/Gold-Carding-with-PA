@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { commonRequest } from "../../../common/api";
-import { CptCodeTypes } from "../../../constants/Types";
-import { formatDate } from "../../../common/functions";
-import Modal from "../../../components/Modal";
+import { commonRequest } from "../../../../common/api";
+import { CptCodeTypes } from "../../../../constants/Types";
+import { formatDate } from "../../../../common/functions";
+import Modal from "../../../../components/Modal";
 import CptCodeCreateForm from "./components/CptCodeCreateForm";
 import CptCodeEditForm from "./components/CptCodeEditForm";
 import { FiEdit, FiTrash } from "react-icons/fi";

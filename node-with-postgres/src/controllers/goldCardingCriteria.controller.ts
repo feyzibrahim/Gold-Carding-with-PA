@@ -11,7 +11,7 @@ router
   .get(async (req: Request, res: Response, next: NextFunction) => {
     try {
       const data = await service.findAll();
-      res.status(200).json(data);
+      res.status(200).json({ data, success: true });
     } catch (error) {
       next(error);
     }
@@ -23,7 +23,7 @@ router
       const data = await service.create({
         ...body,
       });
-      res.status(201).json(data);
+      res.status(201).json({ data, success: true });
     } catch (error) {
       next(error);
     }
@@ -36,7 +36,7 @@ router
     try {
       const id = req.params?.id;
       const data = await service.findById(id);
-      res.status(200).json(data);
+      res.status(200).json({ data, success: true });
     } catch (error) {
       next(error);
     }
@@ -46,7 +46,7 @@ router
     try {
       const id = req.params?.id;
       const data = await service.deleteGoldCardingCriteria(id);
-      res.status(200).json(data);
+      res.status(200).json({ data, success: true });
     } catch (error) {
       next(error);
     }
@@ -64,7 +64,7 @@ router
         ...body,
         criteria_id: id,
       });
-      res.status(200).json(data);
+      res.status(200).json({ data, success: true });
     } catch (error) {
       next(error);
     }

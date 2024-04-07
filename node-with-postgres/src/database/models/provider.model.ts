@@ -1,7 +1,8 @@
-import { DataTypes } from "sequelize";
+import { DataTypes, Model } from "sequelize";
 import { db } from "../index";
+import { ProviderEntity } from "../../entities";
 
-const Provider = db.define("provider", {
+const Provider = db.define<Model<ProviderEntity>>("provider", {
   provider_id: {
     type: DataTypes.UUID,
     primaryKey: true,
@@ -15,6 +16,22 @@ const Provider = db.define("provider", {
   specialty: {
     type: DataTypes.STRING,
     allowNull: false,
+  },
+  approval_rate: {
+    type: DataTypes.FLOAT,
+    allowNull: true,
+  },
+  submission_volume: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+  },
+  readmission_rate: {
+    type: DataTypes.FLOAT,
+    allowNull: true,
+  },
+  treatment_guideline_adherence: {
+    type: DataTypes.FLOAT,
+    allowNull: true,
   },
 });
 

@@ -22,28 +22,31 @@ The project follows a client-server architecture, with the frontend and backend 
 ## Setup Instructions
 
 1. **Clone the Repository:**
-   git clone https://github.com/feyzibrahim/Gold-Carding-with-PA
-   cd dynamic-gold-carding-module
+
+   - git clone https://github.com/feyzibrahim/Gold-Carding-with-PA
+   - cd dynamic-gold-carding-module
 
 2. **Install Dependencies:**
-   cd client
-   npm install
-   cd ../node-with-postgres
-   npm install
+
+   - cd client
+   - npm install
+   - cd ../node-with-postgres
+   - npm install
 
 3. **Database Setup:**
 
-- Download and install [postgreSQL](https://www.postgresql.org/download/)
-- Create an `.env` file inside node-with-postgres and copy the code from `.env.local` and paste it inside the `.env` file.
-- cd node-with-postgres
-- Run `-- psql -U postgres -d dynamic_gold_carding_db -f "create_db_table.sql"`
-- This command will create database, generate tables and insert necessary data to corresponding tables.
+   - Download and install [postgreSQL](https://www.postgresql.org/download/)
+   - Create an `.env` file inside node-with-postgres and copy the code from `.env.local` and paste it inside the `.env` file.
+   - cd node-with-postgres
+   - Run `-- psql -U postgres -d dynamic_gold_carding_db -f "create_db_table.sql"`
+   - This command will create database, generate tables and insert necessary data to corresponding tables.
 
 4. **Start the Development Servers:**
-   cd client
-   npm start | for frontend
-   cd ../node-with-postgres
-   npm start | for backend
+
+   - cd client
+   - npm start | for frontend
+   - cd ../node-with-postgres
+   - npm start | for backend
 
 5. **Access the Application:**
 

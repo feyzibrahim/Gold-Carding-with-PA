@@ -31,11 +31,10 @@ export class ProviderService {
   async update(data: ProviderEntity) {
     const updated = await Provider.update(
       {
-        name: data.name,
-        specialty: data.specialty,
+        ...data,
       },
       {
-        where: { provider_id: data.id },
+        where: { provider_id: data.provider_id },
       }
     );
     return updated;

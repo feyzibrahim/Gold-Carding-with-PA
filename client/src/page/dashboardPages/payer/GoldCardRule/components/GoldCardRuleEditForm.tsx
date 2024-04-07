@@ -17,12 +17,12 @@ function GoldCardRuleEditForm({ setShowModal, setData, selectedRule }: Props) {
     try {
       const res = await commonRequest(
         "PUT",
-        `/goldCardingRule/${selectedRule.criteria_id}`,
+        `/goldCardingRule/${selectedRule.rule_id}`,
         values
       );
       setData((prevData: any[]) =>
         prevData.map((criteria: any) =>
-          criteria.criteria_id === selectedRule.criteria_id ? res : criteria
+          criteria.rule_id === selectedRule.rule_id ? res : criteria
         )
       );
       setShowModal(false);

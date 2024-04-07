@@ -55,7 +55,7 @@ export const updateProviderData = async (): Promise<void> => {
 };
 
 export const startProviderDataUpdateCronJob = (): void => {
-  cron.schedule("*/10 * * * *", () => {
+  cron.schedule("*/50 * * * *", () => {
     console.log("⌚⌚⌚ Running provider data update cron job...");
     updateProviderData();
   });

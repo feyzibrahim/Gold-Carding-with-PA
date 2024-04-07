@@ -6,3 +6,4 @@ export * from "./Payer.service";
 export * from "./Provider.service";
 export * from "./user.service";
 export * from "./PriorAuthorizationRequest.service";
+export * from "./GoldCardEvaluation.service";

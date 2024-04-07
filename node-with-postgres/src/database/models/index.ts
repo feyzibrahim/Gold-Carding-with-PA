@@ -6,3 +6,4 @@ export { default as GoldCardingRule } from "./goldCardingRule.model";
 export { default as Payer } from "./payer.model";
 export { default as ProviderGoldCardingStatus } from "./providerGoldCardingStatus.model";
 export { default as PriorAuthorizationRequest } from "./priorAuthorizationRequest.model";
+export { default as GoldCardEvaluation } from "./goldCardEvaluation.model";

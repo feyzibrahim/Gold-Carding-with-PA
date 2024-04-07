@@ -10,9 +10,11 @@ import {
   PayerController,
   ProviderGoldCardingStatusController,
   PriorAuthorizationRequest,
+  GoldCardEvaluation,
 } from "./controllers";
 import cors from "cors";
 import { startProviderDataUpdateCronJob } from "./cron/startProviderDataUpdateCronJob";
+import generateGoldCardEvaluationCronJob from "./cron/goldCardEvaluationCron";
 
 const app: Application = express();
 
@@ -35,10 +37,12 @@ app.use("/api", GoldCardingCriteriaController);
 app.use("/api", PayerController);
 app.use("/api", ProviderGoldCardingStatusController);
 app.use("/api", PriorAuthorizationRequest);
+app.use("/api", GoldCardEvaluation);
 
 // Cron Jobs
 
 startProviderDataUpdateCronJob();
+generateGoldCardEvaluationCronJob();
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   res

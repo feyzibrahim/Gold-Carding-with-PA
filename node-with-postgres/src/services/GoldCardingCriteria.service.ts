@@ -24,6 +24,12 @@ export class GoldCardingCriteriaService {
     });
     return goldCardingCriteria;
   }
+  async findByLevel(level: string) {
+    const goldCardingCriteria = await GoldCardingCriteria.findAll({
+      where: { level: level },
+    });
+    return goldCardingCriteria;
+  }
 
   async deleteGoldCardingCriteria(id: string | number) {
     const goldCardingCriteria = await GoldCardingCriteria.findOne({

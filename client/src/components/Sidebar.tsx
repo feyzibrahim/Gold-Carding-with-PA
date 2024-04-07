@@ -1,6 +1,11 @@
 import { NavLink } from "react-router-dom";
 import Logo from "/logo.webp";
-import { AiOutlineCode, AiOutlineFileAdd, AiOutlineHome } from "react-icons/ai";
+import {
+  AiFillGold,
+  AiOutlineCode,
+  AiOutlineFileAdd,
+  AiOutlineHome,
+} from "react-icons/ai";
 import { useAppSelector } from "../redux/hook";
 import { BsListCheck } from "react-icons/bs";
 
@@ -21,6 +26,9 @@ function Sidebar() {
             </NavLink>
             <NavLink to="gold-carding-criteria" className="side-nav">
               <BsListCheck /> Gold Carding Criteria
+            </NavLink>
+            <NavLink to="gold-card" className="side-nav">
+              <AiFillGold /> Gold Card
             </NavLink>
           </>
         )}

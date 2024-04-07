@@ -1,5 +1,5 @@
 export interface PayerEntity {
-  payer_id?: number;
+  payer_id?: string;
   name: string;
   description: string;
 }

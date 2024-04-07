@@ -1,7 +1,8 @@
-import { DataTypes } from "sequelize";
+import { DataTypes, Model } from "sequelize";
 import { db } from "../index";
+import { PayerEntity } from "../../entities";
 
-const Payer = db.define("payer", {
+const Payer = db.define<Model<PayerEntity>>("payer", {
   payer_id: {
     type: DataTypes.UUID,
     primaryKey: true,

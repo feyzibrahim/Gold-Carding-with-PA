@@ -10,12 +10,12 @@ import Dashboard from "./page/Dashboard";
 import { useAppSelector } from "./redux/hook";
 import { ReactNode } from "react";
 import Home from "./page/dashboardPages/Home";
-import Claims from "./page/dashboardPages/Claims";
 import CptCodes from "./page/dashboardPages/admin/CptCodes/CptCodes";
 import GoldCardRule from "./page/dashboardPages/payer/GoldCardRule/GoldCardRule";
 import PriorAuthorizationRequest from "./page/dashboardPages/provider/PriorAuthorization/PriorAuthorizationRequest";
 import HandlePARequest from "./page/dashboardPages/payer/HandlePARequest/HandlePARequest";
 import GoldCardCriteria from "./page/dashboardPages/admin/GoldCardCriteria/GoldCardCriteria";
+import GoldCard from "./page/dashboardPages/admin/GoldCard/GoldCard";
 
 function App() {
   const { user } = useAppSelector((state) => state.user);
@@ -43,11 +43,11 @@ function App() {
               )
             }
           />
-          <Route path="claims" element={<Claims />} />
 
           {/* Admin Routes */}
           <Route path="cpt-codes" element={<CptCodes />} />
           <Route path="gold-carding-criteria" element={<GoldCardCriteria />} />
+          <Route path="gold-card" element={<GoldCard />} />
 
           {/* Payer */}
           <Route path="gold-carding-rule" element={<GoldCardRule />} />

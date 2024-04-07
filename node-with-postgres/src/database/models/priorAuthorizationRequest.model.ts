@@ -61,13 +61,11 @@ Provider.hasMany(PriorAuthorizationRequest, {
 });
 
 PriorAuthorizationRequest.belongsTo(Payer, {
-  // Add association to Payer model
   foreignKey: "payer_id",
   as: "payer",
 });
 
 Payer.hasMany(PriorAuthorizationRequest, {
-  // Add association to Payer model
   foreignKey: "payer_id",
   as: "priorAuthorizationRequests",
 });

@@ -61,7 +61,7 @@ router
 
       const { name, description } = req.body;
       const data = await service.update({
-        payer_id: parseInt(id),
+        payer_id: id,
         name,
         description,
       });

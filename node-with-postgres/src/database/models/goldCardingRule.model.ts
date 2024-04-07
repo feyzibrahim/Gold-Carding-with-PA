@@ -1,38 +1,42 @@
-import { DataTypes } from "sequelize";
+import { DataTypes, Model } from "sequelize";
 import { db } from "../index";
 import Payer from "./payer.model";
+import { GoldCardingRuleEntity } from "../../entities";
 
-const GoldCardingRule = db.define("goldCardingRule", {
-  rule_id: {
-    type: DataTypes.UUID,
-    primaryKey: true,
-    defaultValue: DataTypes.UUIDV4,
-  },
-  payer_id: {
-    type: DataTypes.UUID,
-    allowNull: false,
-    references: {
-      model: Payer,
-      key: "payer_id",
+const GoldCardingRule = db.define<Model<GoldCardingRuleEntity>>(
+  "goldCardingRule",
+  {
+    rule_id: {
+      type: DataTypes.UUID,
+      primaryKey: true,
+      defaultValue: DataTypes.UUIDV4,
     },
-  },
-  description: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  metric: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  threshold: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  measurement_period_months: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-  },
-});
+    payer_id: {
+      type: DataTypes.UUID,
+      allowNull: false,
+      references: {
+        model: Payer,
+        key: "payer_id",
+      },
+    },
+    description: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    metric: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    threshold: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    measurement_period_months: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+  }
+);
 
 // Create the table
 (async () => {

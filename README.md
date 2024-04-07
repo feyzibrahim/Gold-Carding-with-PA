@@ -33,27 +33,24 @@ The project follows a client-server architecture, with the frontend and backend 
 
 3. **Database Setup:**
 
-- Create a PostgreSQL database and configure the connection in `server/config/database.js`.
-- Run database migrations to create tables using Sequelize CLI:
-  ```
-  npx sequelize-cli db:migrate
-  ```
+- Download and install postgreSQL `https://www.postgresql.org/download/`
+- Create an `.env` file and copy the code from `.env.local` and paste it inside the `.env` file.
 
 4. **Start the Development Servers:**
    cd client
-   npm start
+   npm start | for frontend
    cd ../server
-   npm start
+   npm start | for backend
 
 5. **Access the Application:**
 
-- Open a web browser and navigate to `http://localhost:3000` to access the frontend.
+- Open a web browser and navigate to `http://localhost:5173` to access the frontend.
 - Use the provided APIs to interact with the backend for data retrieval and processing.
 
 ## Additional Notes
 
-- **API Documentation:** Detailed documentation for backend APIs can be found in the `backend/docs` directory.
-- **Testing:** Unit tests and integration tests are available in the `backend/tests` directory. Run tests using `npm test` in the backend directory.
+- **API Documentation:** Detailed documentation for backend APIs can be found in the [Postman](https://www.postman.com/research-candidate-11889234/workspace/gold-carding-pv/collection/25431562-2a85af3f-24d1-4b14-8ed7-4f87fb6ddd02?action=share&creator=25431562)
+- **Testing:** Unit tests and integration tests are available in the `backend/__tests__` directory. Run tests using `npm test` in the backend directory.
 
 ## Contributors
 

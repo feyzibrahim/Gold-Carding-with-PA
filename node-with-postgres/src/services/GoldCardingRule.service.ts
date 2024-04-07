@@ -41,7 +41,7 @@ export class GoldCardingRuleService {
   }
 
   async update(data: GoldCardingRuleEntity) {
-    const updated = await GoldCardingRule.update(
+    await GoldCardingRule.update(
       {
         ...data,
       },
@@ -49,6 +49,10 @@ export class GoldCardingRuleService {
         where: { rule_id: data.rule_id },
       }
     );
-    return updated;
+    const newData = await GoldCardingRule.findOne({
+      where: { rule_id: data.rule_id },
+    });
+
+    return newData;
   }
 }

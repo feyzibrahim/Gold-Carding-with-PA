@@ -4,11 +4,7 @@ import { GoldCardingCriteriaEntity } from "../entities";
 export class GoldCardingCriteriaService {
   async create(data: GoldCardingCriteriaEntity) {
     const goldCardingCriteria = await GoldCardingCriteria.create({
-      description: data.description,
-      measurement_period_months: data.measurement_period_months,
-      metric: data.metric,
-      threshold: data.threshold,
-      level: data.level,
+      ...data,
     });
     return goldCardingCriteria;
   }

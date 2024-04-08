@@ -48,10 +48,6 @@ generateGoldCardEvaluationCronJob();
 app.post("/api/update-cron", (req: Request, res: Response) => {
   try {
     const { interval } = req.body;
-    console.log(
-      "🚀 file: -> file: app.ts:51 -> app.post -> interval",
-      interval
-    );
 
     generateGoldCardEvaluationCronJob(interval);
 

@@ -30,6 +30,21 @@ router
   });
 
 router
+  .route("/providerGoldCardingStatus/provider/:id")
+  //GET => Find providerGoldCardingStatus by id
+  .get(async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const id = req.params?.id;
+
+      const data = await service.findByProvider(id);
+
+      res.status(200).json({ data, success: true });
+    } catch (error) {
+      next(error);
+    }
+  });
+
+router
   .route("/providerGoldCardingStatus/:id")
   //GET => Find providerGoldCardingStatus by id
   .get(async (req: Request, res: Response, next: NextFunction) => {

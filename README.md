@@ -44,9 +44,9 @@ The project follows a client-server architecture, with the frontend and backend 
 4. **Start the Development Servers:**
 
    - cd client
-   - npm start | for frontend
+   - npm start
    - cd ../node-with-postgres
-   - npm start | for backend
+   - npm start
 
 5. **Access the Application:**
 

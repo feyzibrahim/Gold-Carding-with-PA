@@ -23,6 +23,18 @@ export class GoldCardEvaluationService {
   async findById(id: string | number) {
     const goldCardingEvaluation = await GoldCardEvaluation.findOne({
       where: { evaluation_id: id },
+      include: [
+        {
+          model: Payer,
+          as: "payer",
+          attributes: ["payer_id", "name"],
+        },
+        {
+          model: Provider,
+          as: "provider",
+          attributes: ["provider_id", "name"],
+        },
+      ],
     });
     return goldCardingEvaluation;
   }

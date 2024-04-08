@@ -1,6 +1,7 @@
 import { DataTypes } from "sequelize";
 import { db } from "../index";
 import Provider from "./provider.model";
+import Payer from "./payer.model";
 
 const ProviderGoldCardingStatus = db.define("providerGoldCardingStatus", {
   status_id: {
@@ -12,9 +13,16 @@ const ProviderGoldCardingStatus = db.define("providerGoldCardingStatus", {
     type: DataTypes.UUID,
     allowNull: false,
     references: {
-      // model: "providers",
       model: Provider,
       key: "provider_id",
+    },
+  },
+  payer_id: {
+    type: DataTypes.UUID,
+    allowNull: false,
+    references: {
+      model: Payer,
+      key: "payer_id",
     },
   },
   criteria_met: {
@@ -33,6 +41,30 @@ const ProviderGoldCardingStatus = db.define("providerGoldCardingStatus", {
     type: DataTypes.DATE,
     allowNull: false,
   },
+});
+
+// Define the association between ProviderGoldCardingStatus and Provider
+ProviderGoldCardingStatus.belongsTo(Payer, {
+  foreignKey: "payer_id",
+  as: "payer",
+});
+
+// Define the association between Payer and ProviderGoldCardingStatus
+Payer.hasMany(ProviderGoldCardingStatus, {
+  foreignKey: "payer_id",
+  as: "providerGoldCardingStatus",
+});
+
+// Define the association between PriorAuthorizationRequest and Provider
+ProviderGoldCardingStatus.belongsTo(Provider, {
+  foreignKey: "provider_id",
+  as: "provider",
+});
+
+// Define the association between Provider and PriorAuthorizationRequest
+Provider.hasMany(ProviderGoldCardingStatus, {
+  foreignKey: "provider_id",
+  as: "providerGoldCardingStatus",
 });
 
 // Create the table

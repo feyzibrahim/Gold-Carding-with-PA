@@ -44,6 +44,27 @@ app.use("/api", GoldCardEvaluation);
 startProviderDataUpdateCronJob();
 generateGoldCardEvaluationCronJob();
 
+// Endpoint to update the cron job time
+app.post("/api/update-cron", (req: Request, res: Response) => {
+  try {
+    const { interval } = req.body;
+    console.log(
+      "🚀 file: -> file: app.ts:51 -> app.post -> interval",
+      interval
+    );
+
+    generateGoldCardEvaluationCronJob(interval);
+
+    return res
+      .status(200)
+      .json({ success: true, message: "Cron job updated successfully" });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ success: false, message: "Internal server error" });
+  }
+});
+
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   res
     .status(400)

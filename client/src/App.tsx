@@ -15,7 +15,10 @@ import GoldCardRule from "./page/dashboardPages/payer/GoldCardRule/GoldCardRule"
 import PriorAuthorizationRequest from "./page/dashboardPages/provider/PriorAuthorization/PriorAuthorizationRequest";
 import HandlePARequest from "./page/dashboardPages/payer/HandlePARequest/HandlePARequest";
 import GoldCardCriteria from "./page/dashboardPages/admin/GoldCardCriteria/GoldCardCriteria";
-import GoldCard from "./page/dashboardPages/admin/GoldCard/GoldCard";
+import EvaluationResult from "./page/dashboardPages/admin/EvaluationResult/EvaluationResult";
+import EvaluationDetails from "./page/dashboardPages/admin/EvaluationResult/EvaluationDetails";
+import Settings from "./page/dashboardPages/admin/Settings";
+import GoldCard from "./page/dashboardPages/provider/GoldCard";
 
 function App() {
   const { user } = useAppSelector((state) => state.user);
@@ -43,11 +46,14 @@ function App() {
               )
             }
           />
+          <Route path="gold-card" element={<GoldCard />} />
 
           {/* Admin Routes */}
           <Route path="cpt-codes" element={<CptCodes />} />
           <Route path="gold-carding-criteria" element={<GoldCardCriteria />} />
-          <Route path="gold-card" element={<GoldCard />} />
+          <Route path="evaluation-result" element={<EvaluationResult />} />
+          <Route path="evaluation-result/:id" element={<EvaluationDetails />} />
+          <Route path="settings" element={<Settings />} />
 
           {/* Payer */}
           <Route path="gold-carding-rule" element={<GoldCardRule />} />

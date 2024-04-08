@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { commonRequest } from "../../../../common/api";
 import { GoldCardEvaluationEntity } from "../../../../constants/Types";
+import { useNavigate } from "react-router-dom";
 
-function GoldCard() {
+function EvaluationResult() {
+  const navigate = useNavigate();
   const [data, setData] = useState<GoldCardEvaluationEntity[]>();
 
   const loadData = async () => {
@@ -17,10 +19,16 @@ function GoldCard() {
     loadData();
   }, []);
 
+  const gotoNextPage = (loc: string) => {
+    navigate(loc);
+  };
+
   return (
     <div className="mx-5">
       <div className="flex items-center gap-4">
-        <h2 className="text-2xl font-semibold mb-4">Gold Cards </h2>
+        <h2 className="text-2xl font-semibold mb-4">
+          Gold Card Evaluation Result
+        </h2>
       </div>
       <div className="overflow-x-auto">
         <table className="min-w-full divide-y divide-gray-200">
@@ -55,7 +63,11 @@ function GoldCard() {
           <tbody className="bg-white divide-y divide-gray-200">
             {data &&
               data.map((request, index) => (
-                <tr key={index}>
+                <tr
+                  key={index}
+                  className="hover:bg-gray-100 cursor-pointer active:bg-gray-200"
+                  onClick={() => gotoNextPage(request.evaluation_id as string)}
+                >
                   <td className="px-6 py-4 max-w-72">{request.remarks}</td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     {request?.payer?.name}
@@ -75,4 +87,4 @@ function GoldCard() {
   );
 }
 
-export default GoldCard;
+export default EvaluationResult;

@@ -1,9 +1,13 @@
 import { Router, Request, Response, NextFunction } from "express";
-import { PriorAuthorizationRequestService } from "../services";
+import {
+  PriorAuthorizationRequestService,
+  ProviderGoldCardingStatusService,
+} from "../services";
 import { PriorAuthorizationRequestEntity } from "../entities";
 
 const router = Router();
 const service = new PriorAuthorizationRequestService();
+const providerGoldCardingStatusService = new ProviderGoldCardingStatusService();
 
 router
   .route("/priorAuthorizationRequest")
@@ -20,6 +24,23 @@ router
   .post(async (req: Request, res: Response, next: NextFunction) => {
     try {
       const body: PriorAuthorizationRequestEntity = req.body;
+
+      const goldCardData =
+        await providerGoldCardingStatusService.findByProviderAndPayer(
+          body.provider_id,
+          body.payer_id
+        );
+
+      const goldCard = goldCardData?.toJSON();
+
+      if (goldCard) {
+        // Check if today is less than goldCard.valid_until
+        if (new Date() < goldCard.valid_until) {
+          body.approval_status = true;
+          body.auto_approval = true;
+        }
+      }
+
       const data = await service.create({
         ...body,
       });

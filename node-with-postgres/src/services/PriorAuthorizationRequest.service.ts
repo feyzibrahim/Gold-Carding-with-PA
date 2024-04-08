@@ -1,14 +1,11 @@
 import { Payer, PriorAuthorizationRequest, Provider } from "../database/models";
 import { PriorAuthorizationRequestEntity } from "../entities";
+import { ProviderGoldCardingStatusService } from "./ProviderGoldCardingStatus.service";
 
 export class PriorAuthorizationRequestService {
   async create(data: PriorAuthorizationRequestEntity) {
     const priorAuthorizationRequest = await PriorAuthorizationRequest.create({
-      cpt_code: data.cpt_code,
-      provider_id: data.provider_id,
-      description: data.description,
-      payer_id: data.payer_id,
-      metric: data.metric,
+      ...data,
     });
     return priorAuthorizationRequest;
   }

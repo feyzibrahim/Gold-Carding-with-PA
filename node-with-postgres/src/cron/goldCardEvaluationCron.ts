@@ -3,6 +3,7 @@ import { Provider, Payer, GoldCardEvaluation } from "../database/models";
 import {
   GoldCardingCriteriaService,
   GoldCardingRuleService,
+  ProviderGoldCardingStatusService,
 } from "../services";
 
 const determineGoldCardLevel = async (
@@ -76,6 +77,8 @@ const determineGoldCardLevel = async (
 // Function to generate GoldCardEvaluation for each provider and payer
 const generateGoldCardEvaluation = async (): Promise<void> => {
   const goldCardingRuleService = new GoldCardingRuleService();
+  const providerGoldCardingStatusService =
+    new ProviderGoldCardingStatusService();
 
   try {
     // Fetch all providers and payers
@@ -107,14 +110,6 @@ const generateGoldCardEvaluation = async (): Promise<void> => {
           const providerAny = provider as any;
           let criteriaEval = providerAny[temp];
           if (criteriaEval) {
-            console.log(
-              "🚀 file: -> file: goldCardEvaluationCron.ts:120 -> generateGoldCardEvaluation -> criteriaEval",
-              criteriaEval
-            );
-            console.log(
-              "🚀 file: -> file: goldCardEvaluationCron.ts:121 -> generateGoldCardEvaluation -> rule.threshold",
-              rule.threshold
-            );
             evaluationCriteria.push({
               criteria: rule.description,
               metric: rule.metric,
@@ -123,11 +118,6 @@ const generateGoldCardEvaluation = async (): Promise<void> => {
             });
           }
         }
-
-        console.log(
-          "🚀 file: -> file: goldCardEvaluationCron.ts:160 -> generateGoldCardEvaluation -> evaluationCriteria",
-          evaluationCriteria
-        );
 
         let count = 0;
         evaluationCriteria.map((val) => {
@@ -142,24 +132,40 @@ const generateGoldCardEvaluation = async (): Promise<void> => {
         }
 
         const goldLevel = await determineGoldCardLevel(evaluationCriteria);
-        console.log(
-          "🚀 file: -> file: goldCardEvaluationCron.ts:137 -> generateGoldCardEvaluation -> goldLevel",
-          goldLevel
-        );
 
         if (goldLevel === "None") {
           continue;
         }
 
-        // Create GoldCardEvaluation record
-        await GoldCardEvaluation.create({
-          provider_id: provider.provider_id as string,
-          payer_id: payer.payer_id as string,
-          evaluation_criteria: evaluationCriteria,
-          gold_carding_level: goldLevel,
-          remarks: "Sample remarks",
-          evaluation_date: new Date(),
-        });
+        const providerGoldCardStatus =
+          await providerGoldCardingStatusService.findByProviderAndPayer(
+            provider.provider_id as string,
+            payer.payer_id as string
+          );
+
+        if (!providerGoldCardStatus) {
+          const validUntil = new Date();
+          validUntil.setMonth(validUntil.getMonth() + 1);
+
+          await providerGoldCardingStatusService.create({
+            criteria_met: true,
+            gold_carding_level: goldLevel,
+            provider_id: provider.provider_id as string,
+            payer_id: payer.payer_id as string,
+            valid_from: new Date(),
+            valid_until: validUntil,
+          });
+
+          // Create GoldCardEvaluation record
+          await GoldCardEvaluation.create({
+            provider_id: provider.provider_id as string,
+            payer_id: payer.payer_id as string,
+            evaluation_criteria: evaluationCriteria,
+            gold_carding_level: goldLevel,
+            remarks: "Sample remarks",
+            evaluation_date: new Date(),
+          });
+        }
 
         console.log(
           `Created GoldCardEvaluation for Provider ID ${provider.provider_id} and Payer ID ${payer.payer_id}`
@@ -172,9 +178,14 @@ const generateGoldCardEvaluation = async (): Promise<void> => {
 };
 
 // Cron job to run every day at midnight
-const generateGoldCardEvaluationCronJob = (): void => {
-  cron.schedule("*/10 * * * *", () => {
-    console.log("⌚⌚⌚ Running generateGoldCardEvaluation cron job...");
+const generateGoldCardEvaluationCronJob = (
+  interval: string = "0 0 1 */1 *"
+  // interval: string = "*/5 * * * * *"
+): void => {
+  cron.schedule(interval, () => {
+    console.log(
+      `⌚⌚⌚ ${interval} Running generateGoldCardEvaluation cron job...`
+    );
     generateGoldCardEvaluation();
   });
 };

@@ -7,7 +7,8 @@ import {
   AiOutlineHome,
 } from "react-icons/ai";
 import { useAppSelector } from "../redux/hook";
-import { BsListCheck } from "react-icons/bs";
+import { BsFileEarmarkCheck, BsListCheck } from "react-icons/bs";
+import { FiSettings } from "react-icons/fi";
 
 function Sidebar() {
   const { user } = useAppSelector((state) => state.user);
@@ -27,8 +28,11 @@ function Sidebar() {
             <NavLink to="gold-carding-criteria" className="side-nav">
               <BsListCheck /> Gold Carding Criteria
             </NavLink>
-            <NavLink to="gold-card" className="side-nav">
-              <AiFillGold /> Gold Card
+            <NavLink to="evaluation-result" className="side-nav">
+              <BsFileEarmarkCheck /> Evaluation Result
+            </NavLink>
+            <NavLink to="settings" className="side-nav">
+              <FiSettings /> Settings
             </NavLink>
           </>
         )}
@@ -46,6 +50,9 @@ function Sidebar() {
           <>
             <NavLink to="prior-authorization" className="side-nav">
               <AiOutlineFileAdd /> Prior Authorization
+            </NavLink>
+            <NavLink to="gold-card" className="side-nav">
+              <AiFillGold /> Gold Card
             </NavLink>
           </>
         )}

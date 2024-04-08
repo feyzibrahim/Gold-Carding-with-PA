@@ -38,7 +38,7 @@ The project follows a client-server architecture, with the frontend and backend 
    - Download and install [postgreSQL](https://www.postgresql.org/download/)
    - Create an `.env` file inside node-with-postgres and copy the code from `.env.local` and paste it inside the `.env` file.
    - cd node-with-postgres
-   - Run `-- psql -U postgres -d dynamic_gold_carding_db -f "create_db_table.sql"`
+   - Run `-- psql -U postgres -f "create_db_table.sql"`
    - This command will create database, generate tables and insert necessary data to corresponding tables.
 
 4. **Start the Development Servers:**
